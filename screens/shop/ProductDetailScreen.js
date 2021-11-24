@@ -1,5 +1,12 @@
 import React from 'react';
-import { ScrollView, View, Text, StyleSheet, Image, Button } from 'react-native';
+import {
+    ScrollView,
+    View,
+    Text,
+    Image,
+    Button,
+    StyleSheet
+} from 'react-native';
 import { useSelector, useDispatch } from 'react-redux';
 import Colors from '../../constants/Colors';
 import * as cartActions from '../../store/actions/cart';
@@ -12,7 +19,7 @@ const ProductDetailScreen = props => {
 
     return (
         <ScrollView>
-            <Image style={styles.image} source={{ uri: selectedProduct.image }} />
+            <Image style={styles.image} source={{ uri: selectedProduct.imageUrl }} />
             <View style={styles.actions}>
                 <Button color={Colors.primary} title="Add to Cart" onPress={() => {
                     dispatch(cartActions.addToCart(selectedProduct));
@@ -26,7 +33,7 @@ const ProductDetailScreen = props => {
 
 ProductDetailScreen.navigationOptions = navData => {
     return {
-        hearderTitle: navData.navigation.getParam('productTitle')
+        headerTitle: navData.navigation.getParam('productTitle')
     }
 };
 
