@@ -39,7 +39,6 @@ export default (state = initialState, action) => {
             let updatedCardItems;
             if (currentQty > 1) {
                 //need to reduce it
-                console.log(selectedCartItem)
                 const updatedCardItem = new CartItem(
                     selectedCartItem.quantity - 1,
                     selectedCartItem.productPrice,
