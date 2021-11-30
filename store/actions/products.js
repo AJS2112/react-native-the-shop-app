@@ -11,7 +11,7 @@ export const fetchProducts = () => {
         try {
 
             const response = await fetch(
-                'https://rn-complete-guide-bc624-default-rtdb.firebaseio.com/products.jon',
+                'https://rn-complete-guide-bc624-default-rtdb.firebaseio.com/products.json',
             );
 
             if (!response.ok) {
