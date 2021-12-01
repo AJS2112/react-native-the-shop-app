@@ -7,7 +7,8 @@ export const SET_PRODUCTS = 'SET_PRODUCTS';
 
 
 export const fetchProducts = () => {
-    return async dispatch => {
+    return async (dispatch, getState) => {
+        const userId = getState().auth.userId;
         try {
 
             const response = await fetch(
@@ -33,7 +34,7 @@ export const fetchProducts = () => {
                     )
                 )
             }
-            dispatch({ type: SET_PRODUCTS, products: loadedProducts });
+            dispatch({ type: SET_PRODUCTS, products: loadedProducts, userProducts: loadedProducts.filter(prod => prod.ownerId === userId) });
         } catch (err) {
             throw err;
         }
@@ -62,13 +63,18 @@ export const deleteProduct = productId => {
 export const createProduct = (title, description, imageUrl, price) => {
     return async (dispatch, getState) => {
         const token = getState().auth.token;
+        const userId = getState().auth.userId;
         const response = await fetch(`https://rn-complete-guide-bc624-default-rtdb.firebaseio.com/products.json?auth=${token}`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify({
-                title, description, imageUrl, price
+                title,
+                description,
+                imageUrl,
+                price,
+                ownerId: userId
             })
         });
 
@@ -83,7 +89,8 @@ export const createProduct = (title, description, imageUrl, price) => {
                 title,
                 description,
                 imageUrl,
-                price
+                price,
+                ownerId: userId
             }
         });
     };
